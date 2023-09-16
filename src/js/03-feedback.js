@@ -7,7 +7,6 @@ const refs = {
   input: document.querySelector('.feedback-form input'),
   textarea: document.querySelector('.feedback-form textarea'),
 };
-
 const formData = {};
 
 refs.form.addEventListener('submit', onFormSubmit);
@@ -17,8 +16,13 @@ populateTextarea();
 
 function onFormSubmit(e) {
   e.preventDefault();
+  const values = localStorage.getItem(STORAGE_KEY);
+  if (values) {
+    console.log(JSON.parse(values));
+  }
 
   e.currentTarget.reset();
+
   localStorage.removeItem(STORAGE_KEY);
 }
 
@@ -30,7 +34,6 @@ function onTextareaInput(e) {
 
 function populateTextarea() {
   const savedData = localStorage.getItem(STORAGE_KEY);
-
   if (savedData) {
     const parsedData = JSON.parse(savedData);
     refs.textarea.value = parsedData.message;
