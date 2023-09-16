@@ -21,4 +21,8 @@ function restorePlaybackTime() {
 
 player.on('timeupdate', throttle(savePlaybackTime, 1000));
 
+player.on('ended', () => {
+  player.setCurrentTime(0);
+});
+
 restorePlaybackTime();
